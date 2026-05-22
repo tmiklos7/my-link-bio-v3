@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <main class="container">
+      <a class="top-link" href="{{ url_for('home') }}">← back</a>
+      <h1>{{ title }}</h1>
+
+      <form action="{{ url_for('update_link', link_index=link_index) }}" method="POST">
+        <label for="name">Site Name:</label>
+        <input type="text" id="name" name="name" value="{{ link.name }}" required />
+
+        <label for="url">URL:</label>
+        <input type="url" id="url" name="url" value="{{ link.url }}" required />
+
+        <button type="submit">Save Changes</button>
+      </form>
+    </main>
+  </body>
+</html>

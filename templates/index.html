@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    <a href="/about">about</a>
+    <h1>{{ title }}</h1>
+
+    <form action="/add" method="post">
+      <label for="site_name">Site Name</label>
+      <input id="site_name" name="site_name" type="text" required />
+
+      <label for="site_url">URL</label>
+      <input id="site_url" name="site_url" type="url" required />
+
+      <button type="submit">Add Link</button>
+    </form>
+
+    <ul>
+      {% for link in links %}
+      <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

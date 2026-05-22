@@ -115,3 +115,30 @@ li a {
 li a:hover {
   color: var(--accent);
 }
+
+.link-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0 0.85rem 0.7rem;
+}
+
+.button-link {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.button-link:hover {
+  background: var(--accent-hover);
+}
+
+.link-actions form {
+  margin-bottom: 0;
+}

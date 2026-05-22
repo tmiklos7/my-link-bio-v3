@@ -26,6 +26,14 @@ def add_link():
     return redirect(url_for('home'))
 
 
+@app.route('/delete/<int:link_index>', methods=['POST'])
+def delete_link(link_index):
+    if 0 <= link_index < len(links):
+        links.pop(link_index)
+
+    return redirect(url_for('home'))
+
+
 @app.route('/about')
 def about():
     return render_template('about.html')

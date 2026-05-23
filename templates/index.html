@@ -27,7 +27,7 @@
         {% for link in links %}
         <article class="link-card">
           <header class="link-card-header">
-            <a href="{{ link.url }}">{{ link.name }}</a>
+            <span>{{ link.name }}</span>
             <div class="link-actions">
               <a class="button-link edit" href="{{ url_for('edit_link', link_index=loop.index0) }}">Edit</a>
               <form action="{{ url_for('delete_link', link_index=loop.index0) }}" method="POST">
@@ -36,20 +36,40 @@
             </div>
           </header>
 
+          {% if link.og_image != 'Not Available' %}
+          <img src="{{ link.og_image }}" alt="Preview image for {{ link.name }}" />
+          {% else %}
           <dl class="link-metadata">
-            <div>
-              <dt>Title</dt>
-              <dd>{{ link.og_title }}</dd>
-            </div>
-            <div>
-              <dt>Description</dt>
-              <dd>{{ link.og_description }}</dd>
-            </div>
             <div>
               <dt>Image URL</dt>
               <dd>{{ link.og_image }}</dd>
             </div>
           </dl>
+          {% endif %}
+
+          {% if link.og_title != 'Not Available' %}
+          <p><strong>{{ link.og_title }}</strong></p>
+          {% else %}
+          <dl class="link-metadata">
+            <div>
+              <dt>Title</dt>
+              <dd>{{ link.og_title }}</dd>
+            </div>
+          </dl>
+          {% endif %}
+
+          {% if link.og_description != 'Not Available' %}
+          <p>{{ link.og_description }}</p>
+          {% else %}
+          <dl class="link-metadata">
+            <div>
+              <dt>Description</dt>
+              <dd>{{ link.og_description }}</dd>
+            </div>
+          </dl>
+          {% endif %}
+
+          <a href="{{ link.url }}">{{ link.url }}</a>
         </article>
         {% endfor %}
       </section>

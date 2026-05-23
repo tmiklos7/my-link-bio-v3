@@ -1,13 +1,13 @@
 :root {
-  --bg: #f3f4f6;
+  --bg: #f3f5f8;
   --card: #ffffff;
   --text: #1f2937;
-  --muted: #4b5563;
-  --border: #e5e7eb;
-  --blue: #2563eb;
-  --blue-hover: #1d4ed8;
-  --red: #ef4444;
-  --red-hover: #dc2626;
+  --muted: #64748b;
+  --border: #e7ebf1;
+  --blue: #1d64e6;
+  --blue-hover: #1553c8;
+  --red: #ef233c;
+  --red-hover: #cf1830;
 }
 
 * {
@@ -26,59 +26,58 @@ body {
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
-  padding: 0.75rem 1rem 1.5rem;
+  padding: 0.6rem 0.85rem 1.5rem;
 }
 
-h1 {
-  font-size: 3rem;
-  margin: 0;
-  color: #0f172a;
-}
-
+h1,
 .subtitle {
-  margin: 0.8rem 0 1.5rem;
-  color: var(--muted);
-  font-size: 1.8rem;
+  display: none;
+}
+
+.panel,
+.link-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
 }
 
 .panel {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.2rem;
-  margin-bottom: 1rem;
+  padding: 0.9rem;
+  margin-bottom: 0.8rem;
 }
 
 form {
   display: grid;
-  gap: 0.7rem;
+  gap: 0.55rem;
 }
 
 label {
-  font-size: 1.6rem;
+  font-size: 0.88rem;
   font-weight: 700;
+  color: #334155;
 }
 
 input {
   width: 100%;
-  padding: 0.7rem 0.75rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  font-size: 1.35rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  font-size: 0.92rem;
 }
 
 input:focus {
-  outline: 2px solid rgba(37, 99, 235, 0.25);
+  outline: 2px solid rgba(29, 100, 230, 0.22);
   border-color: var(--blue);
 }
 
 button,
 .button-link {
   border: none;
-  border-radius: 10px;
-  font-size: 1.45rem;
+  border-radius: 9px;
+  font-size: 0.95rem;
   font-weight: 700;
-  padding: 0.6rem 1rem;
+  padding: 0.46rem 0.9rem;
 }
 
 button {
@@ -91,34 +90,32 @@ button:hover {
   background: var(--blue-hover);
 }
 
+form > button[type='submit'] {
+  margin-top: 0.2rem;
+}
+
 .links-list {
   display: grid;
-  gap: 0.8rem;
+  gap: 0.7rem;
 }
 
 .link-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 0.95rem 1rem;
+  padding: 0.9rem;
 }
 
 .link-card-header {
   display: flex;
   justify-content: space-between;
   gap: 0.8rem;
-  align-items: center;
+  align-items: flex-start;
 }
 
-.link-card-header > a {
-  color: #0b4f8c;
-  text-decoration: none;
-  font-size: 1.95rem;
+.link-card-header span {
+  color: #184778;
+  font-size: 1.08rem;
   font-weight: 700;
-}
-
-.link-card-header > a:hover {
-  text-decoration: underline;
+  line-height: 1.3;
+  margin-top: 0.08rem;
 }
 
 .link-actions {
@@ -131,10 +128,18 @@ button:hover {
   margin: 0;
 }
 
-.button-link.edit {
-  background: var(--blue);
+.button-link.edit,
+button.delete {
   color: #fff;
   text-decoration: none;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  min-width: 56px;
+  text-align: center;
+}
+
+.button-link.edit {
+  background: var(--blue);
 }
 
 .button-link.edit:hover {
@@ -150,27 +155,55 @@ button.delete:hover {
 }
 
 .link-metadata {
-  margin: 0.65rem 0 0;
+  margin: 0.52rem 0 0;
   display: grid;
   gap: 0.25rem;
 }
 
 .link-metadata div {
   display: grid;
-  grid-template-columns: 140px 1fr;
+  grid-template-columns: 112px 1fr;
   align-items: start;
-  gap: 0.4rem;
+  gap: 0.55rem;
 }
 
 .link-metadata dt {
-  font-size: 1.35rem;
-  font-weight: 700;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: #111827;
 }
 
 .link-metadata dd {
   margin: 0;
-  font-size: 1.35rem;
+  font-size: 1.04rem;
   color: #111827;
+}
+
+.link-card p {
+  margin: 0.6rem 0 0;
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.link-card img {
+  margin-top: 0.75rem;
+  width: min(100%, 490px);
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  display: block;
+}
+
+.link-card > a {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: #175cb5;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.link-card > a:hover {
+  text-decoration: underline;
 }

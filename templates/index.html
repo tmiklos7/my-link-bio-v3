@@ -23,8 +23,25 @@
 
       <ul>
         {% for link in links %}
-        <li>
-          <a href="{{ link.url }}">{{ link.name }}</a>
+        <li class="link-card">
+          {% if link.og_image != 'Not Available' %}
+          <img class="card-image" src="{{ link.og_image }}" alt="Preview image for {{ link.name }}" />
+          {% endif %}
+
+          <div class="card-content">
+            {% if link.og_title != 'Not Available' or link.og_description != 'Not Available' or link.og_image != 'Not Available' %}
+            <p class="card-title"><strong>{{ link.og_title if link.og_title != 'Not Available' else link.name }}</strong></p>
+            <p class="card-description">{{ link.og_description if link.og_description != 'Not Available' else 'Description: Not Available' }}</p>
+            {% else %}
+            <p class="card-title"><strong>{{ link.name }}</strong></p>
+            <p class="card-description">Title: Not Available</p>
+            <p class="card-description">Description: Not Available</p>
+            <p class="card-description">Image URL: Not Available</p>
+            {% endif %}
+
+            <a class="card-link" href="{{ link.url }}">{{ link.url }}</a>
+          </div>
+
           <div class="link-actions">
             <a class="button-link" href="{{ url_for('edit_link', link_index=loop.index0) }}">Edit</a>
             <form action="{{ url_for('delete_link', link_index=loop.index0) }}" method="POST" style="display: inline">

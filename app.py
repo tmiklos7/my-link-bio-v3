@@ -1,13 +1,48 @@
 from flask import Flask, redirect, render_template, request, url_for
+import requests
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
+NOT_AVAILABLE = "Not Available"
+
+
 # In-memory links store for the current app process.
 links = [
-    {"name": "OpenAI", "url": "https://openai.com"},
-    {"name": "GitHub", "url": "https://github.com"},
-    {"name": "Python", "url": "https://www.python.org"},
+    {"name": "OpenAI", "url": "https://openai.com", "og_title": NOT_AVAILABLE, "og_description": NOT_AVAILABLE, "og_image": NOT_AVAILABLE},
+    {"name": "GitHub", "url": "https://github.com", "og_title": NOT_AVAILABLE, "og_description": NOT_AVAILABLE, "og_image": NOT_AVAILABLE},
+    {"name": "Python", "url": "https://www.python.org", "og_title": NOT_AVAILABLE, "og_description": NOT_AVAILABLE, "og_image": NOT_AVAILABLE},
 ]
+
+
+def extract_og_metadata(site_url):
+    """Fetch a page and parse Open Graph metadata used by social cards."""
+    metadata = {
+        "og_title": NOT_AVAILABLE,
+        "og_description": NOT_AVAILABLE,
+        "og_image": NOT_AVAILABLE,
+    }
+
+    try:
+        response = requests.get(site_url, timeout=10)
+        response.raise_for_status()
+    except requests.RequestException:
+        return metadata
+
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    title_tag = soup.find('meta', attrs={'property': 'og:title'})
+    description_tag = soup.find('meta', attrs={'property': 'og:description'})
+    image_tag = soup.find('meta', attrs={'property': 'og:image'})
+
+    if title_tag and title_tag.get('content'):
+        metadata['og_title'] = title_tag['content']
+    if description_tag and description_tag.get('content'):
+        metadata['og_description'] = description_tag['content']
+    if image_tag and image_tag.get('content'):
+        metadata['og_image'] = image_tag['content']
+
+    return metadata
 
 
 @app.route('/')
@@ -21,7 +56,8 @@ def add_link():
     site_url = request.form.get('url', '').strip()
 
     if site_name and site_url:
-        links.append({"name": site_name, "url": site_url})
+        metadata = extract_og_metadata(site_url)
+        links.append({"name": site_name, "url": site_url, **metadata})
 
     return redirect(url_for('home'))
 
@@ -44,7 +80,8 @@ def update_link(link_index):
     site_url = request.form.get('url', '').strip()
 
     if site_name and site_url:
-        links[link_index] = {"name": site_name, "url": site_url}
+        metadata = extract_og_metadata(site_url)
+        links[link_index] = {"name": site_name, "url": site_url, **metadata}
 
     return redirect(url_for('home'))
 

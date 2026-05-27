@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <main class="container error-page">
+      <p class="error-code">500</p>
+      <h1>{{ title }}</h1>
+      <p class="error-message">Something went wrong while loading this page.</p>
+      <a class="button-link edit" href="{{ url_for('home') }}">Back home</a>
+    </main>
+  </body>
+</html>

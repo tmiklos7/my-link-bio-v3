@@ -29,6 +29,24 @@ body {
   padding: 0.6rem 0.85rem 1.5rem;
 }
 
+.site-nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+
+.site-nav a {
+  color: #175cb5;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  text-decoration: underline;
+}
+
 h1,
 .subtitle {
   display: none;
@@ -73,6 +91,30 @@ h1,
 .panel {
   padding: 0.9rem;
   margin-bottom: 0.8rem;
+}
+
+.page-panel h1 {
+  display: block;
+  margin: 0 0 0.55rem;
+  font-size: 1.6rem;
+}
+
+.page-panel p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.contact-email {
+  display: inline-block;
+  margin-top: 0.8rem;
+  color: #175cb5;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.contact-email:hover {
+  text-decoration: underline;
 }
 
 form {

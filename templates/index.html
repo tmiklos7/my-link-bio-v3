@@ -8,6 +8,12 @@
   </head>
   <body>
     <main class="container">
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="{{ url_for('home') }}">Links</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+      </nav>
+
       <h1>{{ title }}</h1>
       <p class="subtitle">Add and share your favorite links.</p>
 

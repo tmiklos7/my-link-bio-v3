@@ -98,6 +98,17 @@ def delete_link(link_index):
 def about():
     return render_template('about.html')
 
+
+@app.route('/contact')
+def contact():
+    return render_template(
+        'contact.html',
+        title='Contact',
+        email='hello@example.com',
+        message='Have a question or want to connect? Send a note anytime.',
+    )
+
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html', title='Page Not Found'), 404

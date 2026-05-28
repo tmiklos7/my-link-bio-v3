@@ -9,6 +9,7 @@ A personal link in bio page built with Python and Flask. Users can add favorite 
 - Add links from the home page at `/`.
 - Edit or delete existing links.
 - View Open Graph metadata when it is available for a link.
+- See a warning and distinct card style when a saved link has no retrievable preview metadata.
 - Visit `/about` for a short about page.
 - Visit `/contact` to see a short message and contact email address.
 

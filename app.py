@@ -1,4 +1,6 @@
-from flask import Flask, redirect, render_template, request, url_for
+import os
+
+from flask import Flask, flash, redirect, render_template, request, url_for
 import logging
 import requests
 from bs4 import BeautifulSoup
@@ -6,6 +8,7 @@ from bs4 import BeautifulSoup
 logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-key")
 
 NOT_AVAILABLE = "Not Available"
 
@@ -63,6 +66,10 @@ def add_link():
         metadata = extract_og_metadata(site_url)
         if all(value == NOT_AVAILABLE for value in metadata.values()):
             logging.warning("Metadata could not be retrieved for %s", site_url)
+            flash(
+                "We saved your link but could not retrieve a preview for that URL.",
+                "warning",
+            )
         links.append({"name": site_name, "url": site_url, **metadata})
         logging.info("New link added: %s (%s)", site_name, site_url)
 

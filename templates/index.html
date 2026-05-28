@@ -17,6 +17,16 @@
       <h1>{{ title }}</h1>
       <p class="subtitle">Add and share your favorite links.</p>
 
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <section class="flash-messages" aria-label="Status messages">
+        {% for category, message in messages %}
+        <p class="flash-message {{ category }}">{{ message }}</p>
+        {% endfor %}
+      </section>
+      {% endif %}
+      {% endwith %}
+
       <section class="panel">
         <form action="/add" method="POST">
           <label for="name">Site Name</label>
@@ -31,9 +41,15 @@
 
       <section class="links-list">
         {% for link in links %}
-        <article class="link-card">
+        {% set missing_metadata = link.og_title == 'Not Available' and link.og_description == 'Not Available' and link.og_image == 'Not Available' %}
+        <article class="link-card{% if missing_metadata %} missing-preview{% endif %}">
           <header class="link-card-header">
-            <span>{{ link.name }}</span>
+            <span>
+              {{ link.name }}
+              {% if missing_metadata %}
+              <small class="preview-status">Preview unavailable</small>
+              {% endif %}
+            </span>
             <div class="link-actions">
               <a class="button-link edit" href="{{ url_for('edit_link', link_index=loop.index0) }}">Edit</a>
               <form action="{{ url_for('delete_link', link_index=loop.index0) }}" method="POST">

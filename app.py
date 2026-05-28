@@ -1,6 +1,9 @@
 from flask import Flask, redirect, render_template, request, url_for
+import logging
 import requests
 from bs4 import BeautifulSoup
+
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 
@@ -26,7 +29,8 @@ def extract_og_metadata(site_url):
     try:
         response = requests.get(site_url, timeout=10)
         response.raise_for_status()
-    except requests.RequestException:
+    except requests.RequestException as error:
+        logging.warning("Failed to fetch Open Graph data for %s: %s", site_url, error)
         return metadata
 
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -57,7 +61,10 @@ def add_link():
 
     if site_name and site_url:
         metadata = extract_og_metadata(site_url)
+        if all(value == NOT_AVAILABLE for value in metadata.values()):
+            logging.warning("Metadata could not be retrieved for %s", site_url)
         links.append({"name": site_name, "url": site_url, **metadata})
+        logging.info("New link added: %s (%s)", site_name, site_url)
 
     return redirect(url_for('home'))
 
